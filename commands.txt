@@ -1,0 +1,10 @@
+   //to make user with the security system
+   php bin/console make:user
+   php bin/console make:migration
+   php bin/console doctrine:migrations:migrate
+   //create the authentication module
+   php bin/console make:auth
+   php bin/console make:registration-form
+   composer require symfonycasts/verify-email-bundle
+   php bin/console make:migrate
+   php bin/console doctrine:migrations:migrate

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Work{% endblock %}
+
+{% block body %}
+    <style>
+        body{
+            text-align: center;
+
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <h1>Work</h1>
+
+    <table class="table center">
+        <tbody>
+
+            <tr>
+                <th>Wherework</th>
+                <td>{{ work.wherework }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ work.type }}</td>
+            </tr>
+            <tr>
+                <th>Years</th>
+                <td>{{ work.years }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_profile_index') }}">back to list</a>
+
+    <a href="{{ path('work_edit', {'id': work.id}) }}">edit</a>
+
+{% endblock %}

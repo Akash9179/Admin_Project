@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Family{% endblock %}
+
+{% block body %}
+    <style>
+        body{
+            text-align: center;
+
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <h1>Family</h1>
+
+    <table class="table center">
+        <tbody>
+
+            <tr>
+                <th>State</th>
+                <td>{{ family.state }}</td>
+            </tr>
+            <tr>
+                <th>Married</th>
+                <td>{{ family.married }}</td>
+            </tr>
+            <tr>
+                <th>Children</th>
+                <td>{{ family.children }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_profile_index') }}">back to list</a>
+
+    <a href="{{ path('family_edit', {'id': family.id}) }}">edit</a>
+
+{% endblock %}

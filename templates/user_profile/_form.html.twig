@@ -1,0 +1,456 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<style>
+    body{
+        text-align: center;
+
+    }
+</style>
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close,.close1,.close2,.close3{
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+
+    .close:hover,
+    .close:focus,
+    .close1:hover,
+    .close1:focus,
+    .close2:hover,
+    .close2:focus,
+    .close3:hover,
+    .close3:focus
+    {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+<style>
+    .cir{
+        margin-left: auto;
+        margin-right: auto;
+        width:100px;
+        height:100px;
+        border-radius:50px;
+        font-size:20px;
+        color:#fff;
+        line-height:100px;
+        text-align:center;
+        background:#888888;
+    }
+</style>
+
+{{ form_start(form) }}
+
+<div class="slideshow-container">
+
+    <div class="mySlides fade">
+        <div class="numbertext">1 / 4</div>
+        <button id="myBtn">Open Modal</button>
+
+        <div id="myModal" class="modal">
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <ul id="email-fields-list"
+                    data-prototype="{{ form_widget(form.domicile.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.domicile|length }}">
+                    {% for emailField in form.domicile %}
+                        <li>
+                            {{ form_errors(emailField) }}
+                            {{ form_widget(emailField) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="cir">Domicile</div>
+    </div>
+
+    <div class="mySlides fade">
+        <div class="numbertext">2 / 4</div>
+
+        <button id="myBtn1">Open Modal</button>
+
+        <!-- The Modal -->
+        <div id="myModal1" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close1">&times;</span>
+                <ul id="diplomes-fields-list"
+                    data-prototype="{{ form_widget(form.family.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.family|length }}">
+                    {% for emailField in form.family %}
+                        <li>
+                            {{ form_errors(emailField) }}
+                            {{ form_widget(emailField) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="cir">Family</div>
+    </div>
+
+    <div class="mySlides fade">
+        <div class="numbertext">3 / 4</div>
+        <button id="myBtn2">Open Modal</button>
+
+        <div id="myModal2" class="modal">
+
+            <div class="modal-content">
+                <span class="close2">&times;</span>
+                <ul id="education-fields-list"
+                    data-prototype="{{ form_widget(form.education.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.education|length }}">
+                    {% for emailField in form.education %}
+                        <li>
+                            {{ form_errors(emailField) }}
+                            {{ form_widget(emailField) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="cir">Education</div>
+    </div>
+
+
+    <div class="mySlides fade">
+        <div class="numbertext">4 / 4</div>
+        <button id="myBtn3">Open Modal</button>
+
+        <div id="myModal3" class="modal">
+
+            <div class="modal-content">
+                <span class="close3">&times;</span>
+                <ul id="work-fields-list"
+                    data-prototype="{{ form_widget(form.work.vars.prototype)|e }}"
+                    data-widget-tags="{{ '<li></li>'|e }}"
+                    data-widget-counter="{{ form.work|length }}">
+                    {% for emailField in form.work %}
+                        <li>
+                            {{ form_errors(emailField) }}
+                            {{ form_widget(emailField) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="cir">Work</div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+</div>
+
+
+
+
+<br>
+<br>
+{{ form_end(form) }}
+<script>
+
+    var modal = document.getElementById("myModal");
+
+    var btn = document.getElementById("myBtn");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function(event) {
+        event.preventDefault()
+        modal.style.display = "block";
+                var list = $("#email-fields-list");
+                list.empty();
+                // Try to find the counter of the list or use the length of the list
+                var counter = list.data('widget-counter') | list.children().length;
+
+                // grab the prototype template
+                var newWidget = list.attr('data-prototype');
+                // replace the "__name__" used in the id and name of the prototype
+                // with a number that's unique to your emails
+                // end name attribute looks like name="contact[emails][2]"
+                newWidget = newWidget.replace(/__name__/g, counter);
+                // Increase the counter
+                counter++;
+                // And store it, the length cannot be used if deleting widgets is allowed
+                list.data('widget-counter', counter);
+
+                // create a new list element and add it to the list
+                var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+                newElem.appendTo(list);
+                //newElem.append('<a href="#" class="remove-tag" style="color: darkred">remove</a>');
+                $('.remove-tag').click(function(e) {
+                    e.preventDefault();
+
+                    $(this).parent().remove();
+
+                });
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+
+
+
+
+
+
+
+    var modal1 = document.getElementById("myModal1");
+
+    var btn1 = document.getElementById("myBtn1");
+
+    var span1 = document.getElementsByClassName("close1")[0];
+
+    btn1.onclick = function(event) {
+        event.preventDefault()
+
+        modal1.style.display = "block";
+                var list = $("#diplomes-fields-list");
+        list.empty();
+
+        // Try to find the counter of the list or use the length of the list
+                var counter = list.data('widget-counter') | list.children().length;
+
+                // grab the prototype template
+                var newWidget = list.attr('data-prototype');
+                // replace the "__name__" used in the id and name of the prototype
+                // with a number that's unique to your emails
+                // end name attribute looks like name="contact[emails][2]"
+                newWidget = newWidget.replace(/__name__/g, counter);
+                // Increase the counter
+                counter++;
+                // And store it, the length cannot be used if deleting widgets is allowed
+                list.data('widget-counter', counter);
+
+                // create a new list element and add it to the list
+                var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+                newElem.appendTo(list);
+                //newElem.append('<a href="#" class="remove-tag" style="color: darkred">remove</a>');
+                $('.remove-tag').click(function(e) {
+                    e.preventDefault();
+
+                    $(this).parent().remove();
+
+                });
+    }
+
+    span1.onclick = function() {
+        modal1.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal1) {
+            modal1.style.display = "none";
+        }
+    }
+
+
+
+
+
+
+
+    var modal2 = document.getElementById("myModal2");
+
+    var btn2 = document.getElementById("myBtn2");
+
+    var span2 = document.getElementsByClassName("close2")[0];
+
+    btn2.onclick = function(event) {
+        event.preventDefault()
+
+        modal2.style.display = "block";
+        var list = $("#education-fields-list");
+        list.empty();
+
+        // Try to find the counter of the list or use the length of the list
+        var counter = list.data('widget-counter') | list.children().length;
+
+        // grab the prototype template
+        var newWidget = list.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your emails
+        // end name attribute looks like name="contact[emails][2]"
+        newWidget = newWidget.replace(/__name__/g, counter);
+        // Increase the counter
+        counter++;
+        // And store it, the length cannot be used if deleting widgets is allowed
+        list.data('widget-counter', counter);
+
+        // create a new list element and add it to the list
+        var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+        newElem.appendTo(list);
+        //newElem.append('<a href="#" class="remove-tag" style="color: darkred">remove</a>');
+        $('.remove-tag').click(function(e) {
+            e.preventDefault();
+
+            $(this).parent().remove();
+
+        });
+    }
+
+    span2.onclick = function() {
+        modal2.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal2) {
+            modal2.style.display = "none";
+        }
+    }
+
+
+
+
+
+
+
+
+
+    var modal3 = document.getElementById("myModal3");
+
+    var btn3 = document.getElementById("myBtn3");
+
+    var span3 = document.getElementsByClassName("close3")[0];
+
+    btn3.onclick = function(event) {
+        event.preventDefault()
+
+        modal3.style.display = "block";
+        var list = $("#work-fields-list");
+        list.empty();
+
+        // Try to find the counter of the list or use the length of the list
+        var counter = list.data('widget-counter') | list.children().length;
+
+        // grab the prototype template
+        var newWidget = list.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your emails
+        // end name attribute looks like name="contact[emails][2]"
+        newWidget = newWidget.replace(/__name__/g, counter);
+        // Increase the counter
+        counter++;
+        // And store it, the length cannot be used if deleting widgets is allowed
+        list.data('widget-counter', counter);
+
+        // create a new list element and add it to the list
+        var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+        newElem.appendTo(list);
+        //newElem.append('<a href="#" class="remove-tag" style="color: darkred">remove</a>');
+        $('.remove-tag').click(function(e) {
+            e.preventDefault();
+
+            $(this).parent().remove();
+
+        });
+    }
+
+    span3.onclick = function() {
+        modal3.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal3) {
+            modal3.style.display = "none";
+        }
+    }
+
+
+
+
+
+
+
+
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+
+
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        if(n==4)
+            document.getElementById("user_profile_Submit").style.display = "";
+        else
+            document.getElementById("user_profile_Submit").style.display = "none";
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+    }
+</script>

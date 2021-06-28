@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Domicile{% endblock %}
+
+{% block body %}
+    <style>
+        body{
+            text-align: center;
+
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <h1>Domicile</h1>
+
+    <table class="table center">
+        <tbody>
+
+            <tr>
+                <th>Country</th>
+                <td>{{ domicile.country }}</td>
+            </tr>
+            <tr>
+                <th>Years</th>
+                <td>{{ domicile.years }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_profile_index') }}">back to list</a>
+
+    <a href="{{ path('domicile_edit', {'id': domicile.id}) }}">edit</a>
+
+{% endblock %}

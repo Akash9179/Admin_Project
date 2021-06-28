@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserProfile{% endblock %}
+
+{% block body %}
+
+    <style>
+        body{
+            text-align: center;
+
+        }
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <h1>{{ user_profile.account.firstname }}</h1>
+
+    <table class="table center">
+        <tbody>
+
+        {% for user_profile in user_profile.domicile %}
+            <tr>
+                <th>Domicile info</th>
+
+                <td><a href="{{ path('domicile_show', {'id': user_profile.id}) }}">show</a>
+                    <a href="{{ path('domicile_edit', {'id': user_profile.id}) }}">edit</a></td>
+            </tr>
+
+        {% endfor %}
+
+
+        {% for user_profile in user_profile.family %}
+            <tr>
+                <th>Family info</th>
+
+                <td><a href="{{ path('family_show', {'id': user_profile.id}) }}">show</a>
+                    <a href="{{ path('family_edit', {'id': user_profile.id}) }}">edit</a></td>
+            </tr>
+
+        {% endfor %}
+
+
+        {% for user_profile in user_profile.education %}
+            <tr>
+                <th>Education info</th>
+
+                <td><a href="{{ path('education_show', {'id': user_profile.id}) }}">show</a>
+                    <a href="{{ path('education_edit', {'id': user_profile.id}) }}">edit</a></td>
+            </tr>
+
+        {% endfor %}
+
+
+        {% for user_profile in user_profile.work %}
+            <tr>
+                <th>work info</th>
+
+                <td><a href="{{ path('work_show', {'id': user_profile.id}) }}">show</a>
+                    <a href="{{ path('work_edit', {'id': user_profile.id}) }}">edit</a></td>
+            </tr>
+
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+
+
+
+
+{% endblock %}
