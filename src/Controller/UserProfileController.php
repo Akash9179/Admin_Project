@@ -27,6 +27,7 @@ class UserProfileController extends AbstractController
         $userProfile = $userProfileRepository->findOneBy([
             'account' => $this->get('security.token_storage')->getToken()->getUser()->getId()
         ]);
+        
         return $this->render('user_profile/show.html.twig', [
             'user_profile' => $userProfile,
         ]);
